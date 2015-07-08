@@ -8,6 +8,7 @@
 <body>
 	<main>
 		<h1>Whack-a-Mole</h1>
+		<h3 id='highScore'>High Score: 0</h3>
 		<h3 id='score'>Score: 0</h3>
 		<div id="container">
 			<div id="box_1" class="box"></div>
@@ -25,7 +26,9 @@
 	<script type="text/javascript">
 	  	"use strict";
 	  	var score = 0;
+	  	var highScore = 0;
 	  	var newRandom = 0;
+	  	var targetTime = 1000;
 	  	//random function gets a random div and 
 	  	//makes it have a class of target
 		var randomTarget = function(){
@@ -39,7 +42,7 @@
 			console.log(targetBox);
 			$(targetBox).addClass('target');
 		};
-		//removes class of 'target' on click
+		//removes class of 'target' on click; adds score
 		$('#container').on('click','.target', function(){
 			$(this).removeClass('target');
 			score += 1;
@@ -47,18 +50,27 @@
 		});
 		//startbutton for game start
 		$('#container').on('click','.start', function(){
+			//show fresh score
+			$('#score').html('Score: ' + score);
 			$(this).html('').removeClass('start');
 			//shows a target every second
 			//disappears after one second or if clicked
 			var timer = setInterval(function(){
 				$('.target').removeClass('target');
 				randomTarget();
-			}, 1000);
+			}, targetTime);
 			//stopsInterval after 30 seconds
+			//resets start button and score
 			setTimeout(function(){
 				clearInterval(timer);
+				console.log(targetTime);
 				$('.target').removeClass('target');
 				$('#box_5').addClass('start').html('<h4>START!<h4/>');
+				if(score > highScore){
+					highScore = score;
+					$('#highScore').html('High Score: ' + highScore);	
+				}
+				score = 0;
 			}, 30000);
 		});
 	</script>  	
