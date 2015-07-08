@@ -1,0 +1,40 @@
+main{
+	margin-left: auto;
+    margin-right: auto;
+    width: 700px;
+    margin-top: 50px;
+    text-align: center;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 1.5rem;
+}
+h1, h3{
+    text-shadow: 2px 2px #CCC;
+}
+#container{
+    position: relative;
+    border: 2px solid;
+    height: 606px;
+    width: 606px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    background-color: #FFF;
+}
+.box{
+    height: 200px;
+    width: 200px;
+    float: left;
+    border: 1px solid;
+}
+.target{
+    background-color: #F00;
+}
+.start{
+    background-color: #CCC;
+}
+h4{
+	font-size: 1.5rem;
+	font-family: Tahoma, Geneva, sans-serif;
+	color: #000;
+    margin-top: 80px;
+}

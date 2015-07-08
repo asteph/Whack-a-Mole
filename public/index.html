@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Whack-a-Mole</title>
+	<link rel="stylesheet" href="whack_a_mole.css">
+</head>
+<body>
+	<main>
+		<h1>Whack-a-Mole</h1>
+		<h3 id='score'>Score: 0</h3>
+		<div id="container">
+			<div id="box_1" class="box"></div>
+			<div id="box_2" class="box"></div>
+			<div id="box_3" class="box"></div>
+			<div id="box_4" class="box"></div>
+			<div id="box_5" class="box start"><h4>START!</h4></div>
+			<div id="box_6" class="box"></div>
+			<div id="box_7" class="box"></div>
+			<div id="box_8" class="box"></div>
+			<div id="box_9" class="box"></div>
+		</div>
+	</main>
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+	  	"use strict";
+	  	var score = 0;
+	  	//random function gets a random div and 
+	  	//makes it have a class of target
+		var randomTarget = function(){
+			var targetBox;
+			var random = Math.ceil(Math.random() * 9);
+			targetBox = '#box_' + random;
+			console.log(targetBox);
+			$(targetBox).addClass('target');
+		};
+		//removes class of 'target' on click
+		$('#container').on('click','.target', function(){
+			$(this).removeClass('target');
+			score += 1;
+			$('#score').html('Score: ' + score);
+		});
+		//startbutton for game start
+		$('#container').on('click','.start', function(){
+			$(this).html('').removeClass('start');
+			//shows a target every second
+			//disappears after one second or if clicked
+			var timer = setInterval(function(){
+				$('.target').removeClass('target');
+				randomTarget();
+			}, 1000);
+			//stopsInterval after 30 seconds
+			setTimeout(function(){
+				clearInterval(timer);
+			}, 30000);
+		});
+	</script>  	
+</body>
+</html>
