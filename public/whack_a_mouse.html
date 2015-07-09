@@ -23,6 +23,9 @@
 			<div id="box_9" class="box"></div>
 		</div>
 	</main>
+	<audio id="cat_meow">
+	  <source src="cat_meow.wav" type="audio/wav">
+	</audio>
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
 	  	"use strict";
@@ -33,6 +36,10 @@
 	  	var timerInterval;
 	  	var countInterval;
 	  	var countdown = 30;
+	  	//game over audio(cat meow)
+	  	var playGameOver = function(){ 
+			document.getElementById("cat_meow").play(); 
+		};
 	  	//Counts down remaining time in game in seconds
 	  	var countdownTimer = function(countdown){
 	  		countInterval = setInterval(function(){
@@ -87,7 +94,11 @@
 				clearInterval(countInterval);
 				timeShown = 1000;
 				$('.target').removeClass('target');
-				$('#start').addClass('start').html('<h4>START!<h4/>');
+				$('#start').html('<h4>GAME OVER<h4/>');
+				playGameOver();
+				setTimeout(function(){
+					$('#start').addClass('start').html('<h4>START!<h4/>');
+				}, 3000);
 				if(score > highScore){
 					highScore = score;
 					$('#highScore').html('High Score: ' + highScore);	
