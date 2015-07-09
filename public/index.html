@@ -28,7 +28,8 @@
 	  	var score = 0;
 	  	var highScore = 0;
 	  	var newRandom = 0;
-	  	var targetTime = 1000;
+	  	var timeShown = 1000;
+	  	var timerInterval;
 	  	//random function gets a random div and 
 	  	//makes it have a class of target
 		var randomTarget = function(){
@@ -42,10 +43,23 @@
 			console.log(targetBox);
 			$(targetBox).addClass('target');
 		};
+		//shows a target every second
+		//disappears after one second or if clicked
+		var timer = function(timeShown){
+			timerInterval = setInterval(function(){
+				$('.target').removeClass('target');
+				randomTarget();
+				console.log(timeShown);
+			}, timeShown);
+		};
 		//removes class of 'target' on click; adds score
 		$('#container').on('click','.target', function(){
 			$(this).removeClass('target');
 			score += 1;
+			//increase speed at which boxes are shown
+			clearInterval(timerInterval);
+			timeShown -= 50;
+			timer(timeShown);
 			$('#score').html('Score: ' + score);
 		});
 		//startbutton for game start
@@ -53,17 +67,13 @@
 			//show fresh score
 			$('#score').html('Score: ' + score);
 			$(this).html('').removeClass('start');
-			//shows a target every second
-			//disappears after one second or if clicked
-			var timer = setInterval(function(){
-				$('.target').removeClass('target');
-				randomTarget();
-			}, targetTime);
+			//start showing boxes
+			timer(timeShown);
 			//stopsInterval after 30 seconds
 			//resets start button and score
 			setTimeout(function(){
-				clearInterval(timer);
-				console.log(targetTime);
+				clearInterval(timerInterval);
+				timeShown = 1000;
 				$('.target').removeClass('target');
 				$('#box_5').addClass('start').html('<h4>START!<h4/>');
 				if(score > highScore){
