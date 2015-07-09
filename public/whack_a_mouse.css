@@ -50,7 +50,7 @@ h3{
 .moveBack{
     z-index: -5;
 }
-.start{
+#start{
     position: absolute;
     height: 200px;
     width: 200px;

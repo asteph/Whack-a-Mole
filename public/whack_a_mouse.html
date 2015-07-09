@@ -31,6 +31,16 @@
 	  	var newRandom = 0;
 	  	var timeShown = 1000;
 	  	var timerInterval;
+	  	var countInterval;
+	  	var countdown = 30;
+	  	//Counts down remaining time in game in seconds
+	  	var countdownTimer = function(countdown){
+	  		countInterval = setInterval(function(){
+	  			var showCount = '<h4>Time Remaining:<br>' + countdown + '<h4/>';
+				$('#start').html(showCount);
+				countdown -= 1;
+			}, 1000);
+	  	};
 	  	//random function gets a random div and 
 	  	//makes it have a class of target
 		var randomTarget = function(){
@@ -66,15 +76,18 @@
 			//show fresh score
 			$('#score').html('Score: ' + score);
 			$(this).html('').removeClass('start');
+			//start the countdown seen by user
+			countdownTimer(countdown);
 			//start showing boxes
 			timer(timeShown);
 			//stopsInterval after 30 seconds
 			//resets start button and score
 			setTimeout(function(){
 				clearInterval(timerInterval);
+				clearInterval(countInterval);
 				timeShown = 1000;
 				$('.target').removeClass('target');
-				$('#box_5').addClass('start').html('<h4>START!<h4/>');
+				$('#start').addClass('start').html('<h4>START!<h4/>');
 				if(score > highScore){
 					highScore = score;
 					$('#highScore').html('High Score: ' + highScore);	
