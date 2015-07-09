@@ -43,6 +43,7 @@ h3{
     position:absolute;
 } 
 .target{ 
+    transition: all ease 0.2s;
     background-position: 50% 100%;
     z-index: 5;
 }
