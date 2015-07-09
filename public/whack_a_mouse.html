@@ -26,6 +26,12 @@
 	<audio id="cat_meow">
 	  <source src="cat_meow.wav" type="audio/wav">
 	</audio>
+	<audio id="long_meow">
+	  <source src="30sec_meow.wav" type="audio/wav">
+	</audio>
+	<audio id="mouse_squeek">
+	  <source src="mouse.wav" type="audio/wav">
+	</audio>
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
 	  	"use strict";
@@ -36,9 +42,15 @@
 	  	var timerInterval;
 	  	var countInterval;
 	  	var countdown = 30;
-	  	//game over audio(cat meow)
+	  	//game audio(angry cat meow, meow throughout, mouse squeek)
 	  	var playGameOver = function(){ 
 			document.getElementById("cat_meow").play(); 
+		};
+	  	var playGameStart = function(){ 
+			document.getElementById("long_meow").play(); 
+		};
+	  	var playMouseSqueek = function(){ 
+			document.getElementById("mouse_squeek").play(); 
 		};
 	  	//Counts down remaining time in game in seconds
 	  	var countdownTimer = function(countdown){
@@ -70,6 +82,7 @@
 		};
 		//removes class of 'target' on click; adds score
 		$('#container').on('click','.target', function(){
+			playMouseSqueek();
 			$(this).removeClass('target');
 			score += 1;
 			//increase speed at which boxes are shown
@@ -78,8 +91,10 @@
 			timer(timeShown);
 			$('#score').html('Score: ' + score);
 		});
-		//startbutton for game start
+		//START GAME on click
 		$('#container').on('click','.start', function(){
+			//start background audio (cat meowing)
+			playGameStart();
 			//show fresh score
 			$('#score').html('Score: ' + score);
 			$(this).html('').removeClass('start');
@@ -95,6 +110,7 @@
 				timeShown = 1000;
 				$('.target').removeClass('target');
 				$('#start').html('<h4>GAME OVER<h4/>');
+				//angry meow sound
 				playGameOver();
 				setTimeout(function(){
 					$('#start').addClass('start').html('<h4>START!<h4/>');
